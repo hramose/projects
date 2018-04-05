@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<title>Editor example - Responsive table extension</title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.1.2/css/select.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="../../css/editor.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="../resources/syntax/shCore.css">
+	<link rel="stylesheet" type="text/css" href="../resources/demo.css">
+	<style type="text/css" class="init">
+	</style>
+	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.0.min.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.min.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.1.2/js/dataTables.select.min.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="../../js/dataTables.editor.min.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="../resources/syntax/shCore.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="../resources/demo.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="../resources/editor-demo.js">
+	</script>
+	<script type="text/javascript" language="javascript" class="init">
+	
+
+
+var editor; // use a global for the submit and return data rendering in the examples
+$(document).ready(function() {
+	editor = new $.fn.dataTable.Editor( {
+		ajax: "../php/join.php?format=custom",
+		table: "#example",
+		fields: [		
+			{
+				label: "Cirugia",
+				name: "cirugias.nombre"
+			}, {
+				label: "Clinica",
+				name: "clinica_medico.nombre"
+			}, {
+				label: "Cirujano",
+				name: "cirugias.cirujano"
+			}, {
+				label: "Nombres:",
+				name: "paciente.nombres"
+			}, {
+				label: "Apellidos:",
+				name: "paciente.apellidos"
+			}, {
+				label: "Cedula:",
+				name: "paciente.cedula"
+			}, {
+				label: "Edad:",
+				name: "paciente.edad"
+			}, {
+				label: "Seguro(s)",
+				name: "cirugias.seguros"
+			}, {
+				label: "Rol",
+				name: "medico_cirugia.id_rol"
+			}, {
+				label: "Monto",
+				name: "datos_cirugia.monto"
+			}, {
+				label: "Fecha Atencion",
+				name: "datos_cirugia.fecha_carga",
+				type:   'datetime',
+				def:    function () { return new Date(); },
+				format: 'YYYY-MM-DD',
+				fieldInfo: 'US style YYYY-MM-DD format'				
+			}, {
+				label: "Observacion",
+				name: "datos_cirugia.observaciones"
+			}/*, {
+				label: "Tipo Atencion:",
+				name: "maestro.campo"
+			}*/
+		]
+	} );
+
+	$('#example').DataTable( {
+		dom: "Bfrtip",
+		ajax: "../php/join.php?format=custom",
+		columns: [
+			{ data: "cirugias.nombre" },
+			{ data: "clinica_medico.nombre" },
+			{ data: "cirugias.cirujano" },
+			{ data: "paciente.nombres" },
+			{ data: "paciente.apellidos" },
+			{ data: "paciente.cedula" },
+			{ data: "paciente.edad" },			
+			{ data: "cirugias.seguros" },
+			{ data: "medico_cirugia.id_rol" },
+			{ data: "datos_cirugia.monto", render: $.fn.dataTable.render.number( '.', ',', 2, 'Bs ' ) },	
+			{ data: "datos_cirugia.fecha_carga" },
+			{ data: "datos_cirugia.observaciones" },
+			{ data: "maestro.campo" }
+		],
+		select: true,
+		buttons: [
+			{ extend: "create", editor: editor },
+			{ extend: "edit",   editor: editor },
+			{ extend: "remove", editor: editor }
+		]
+	} );
+} );
+
+
+
+	</script>
+</head>
+<body class="dt-example">
+	<div class="container">
+			<table id="example" class="display responsive nowrap" cellspacing="0" width="100%">
+				<thead>
+					<tr>				
+						<th>Cirugia</th>
+						<th>Clinica</th>
+						<th>Cirujano</th>
+						<th>Nombre Paciente</th>
+						<th>Apellido Paciente</th>					
+						<th>CI</th>
+						<th>Edad</th>						
+						<th>Seguro</th>
+						<th>Rol</th>
+						<th>Monto</th>
+						<th>Fecha Ultima Atencion</th>
+						<th>Observacion</th>
+						<th>Tipo Atencion</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>				
+						<th>Cirugia</th>
+						<th>Clinica</th>
+						<th>Cirujano</th>
+						<th>Nombre Paciente</th>
+						<th>Apellido Paciente</th>
+						<th>CI</th>
+						<th>Edad</th>							
+						<th>Seguro</th>
+						<th>Rol</th>
+						<th>Monto</th>
+						<th>Fecha Ultima Atencion</th>
+						<th>Observacion</th>
+						<th>Tipo Atencion</th>
+					</tr>
+				</tfoot>
+			</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+/**
+ * parallax.css
+ * @Author Original @msurguy -> http://bootsnipp.com/snippets/featured/parallax-login-form
+ * @Reworked By @kaptenn_com 
+ * @package PARALLAX LOGIN.
+ */
+    
+	.titulo_int {
+		font-size: 15pt;
+		color: #2a3f54;
+	}
+	
+	.forma_llena {
+		height: 100%;
+		/*background-color: #e5e2e3;*/
+		width: 100%;
+		top: 10%;
+		margin: 25px;
+		padding: 25px;
+		color: #fd0018;
+		font-size: 15pt;
+		text-align: center;
+	}
+	
+	.msj {
+		color: #fd0018;
+		font-size: 12pt;		
+	}
